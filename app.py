@@ -10,15 +10,15 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/signup')
+@app.route('/signup.html')
 def signup():
     return render_template('signup.html')
 
-@app.route('/police-section')
+@app.route('/police-section.html')
 def police_section():
     return render_template('policesection.html')
 
-@app.route('/citizen-section')
+@app.route('/citizen-section.html')
 def citizen_section():
     return render_template('citizensection.html')
 
