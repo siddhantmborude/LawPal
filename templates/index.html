@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body onload="checkLogin()">
+    <header>
+        <h1>Law Guide</h1>
+        <button id="theme-toggle">Dark Mode</button>
+        <button id="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <nav>
+        <ul>
+            <div class="section-container">
+                <section class="section police-section">
+                    <h2>Police Section</h2>
+                    <p>Guidelines and FIR assistance for police officers...</p>
+                    <button><a href="{{ url_for('police_section') }}">Enter</a></button>
+                </section>
+
+                <section class="section citizen-section">
+                    <h2>Citizen Section</h2>
+                    <p>Know your rights: traffic laws, land laws, and more...</p>
+                    <button><a href="{{ url_for('citizen_section') }}">Enter</a></button>
+                </section>
+            </div>
+        </ul>
+    </nav>
+
+    <footer>
+        <p>&copy; 2025 Law Guide. All rights reserved.</p>
+    </footer>
+</body>
+</html>
