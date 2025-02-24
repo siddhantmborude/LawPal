@@ -20,12 +20,58 @@
                 <section class="section police-section">
                     <h2>Police Section</h2>
                     <p>Guidelines and FIR assistance for police officers...</p>
+                    <title>Search Laws</title>
+    <script>
+        function searchLaws() {
+            let query = document.getElementById("searchInput").value;
+            
+            fetch("/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("results").innerHTML = data.result;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <h2>Search Laws</h2>
+    <input type="text" id="searchInput" placeholder="Enter law keyword">
+    <button onclick="searchLaws()">Search</button>
+    <div id="results"></div>
                     <button><a href="{{ url_for('police_section') }}">Enter</a></button>
                 </section>
 
                 <section class="section citizen-section">
                     <h2>Citizen Section</h2>
                     <p>Know your rights: traffic laws, land laws, and more...</p>
+                    <title>Search Laws</title>
+    <script>
+        function searchLaws() {
+            let query = document.getElementById("searchInput").value;
+            
+            fetch("/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("results").innerHTML = data.result;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <h2>Search Laws</h2>
+    <input type="text" id="searchInput" placeholder="Enter law keyword">
+    <button onclick="searchLaws()">Search</button>
+    <div id="results"></div>
                     <button><a href="{{ url_for('citizen_section') }}">Enter</a></button>
                 </section>
             </div>
