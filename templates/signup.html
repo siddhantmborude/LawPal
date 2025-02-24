@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp - Law Guide</title>
     
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <script defer src="{{ url_for('static', filename='script.js') }}"></script>
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <div class="signup-container">
         <h2 style="color: blue;">SignUp to Law Guide</h2>
 
-        <form id="signup-form">
-            <input type="text" id="new-username" placeholder="Enter Username" required>
-            <input type="password" id="new-password" placeholder="Enter Password" required>
+        <!-- Corrected form with action and method -->
+        <form id="signup-form" action="/signup" method="POST">
+            <input type="text" id="new-username" name="new-username" placeholder="Enter Username" required>
+            <input type="password" id="new-password" name="new-password" placeholder="Enter Password" required>
             <button type="submit">Sign Up</button>
-    </form>
-    <p id="error-message" class="error"></p>
-</div>
+        </form>
+
+        <p id="signup-message" class="error"></p> <!-- Fixed ID to match JS -->
+    </div>
 </body>
 </html>
