@@ -1,9 +1,11 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    margin: 10;
+    margin: 0; /* Fixed margin */
     padding: 0;
     transition: background-color 0.5s, color 0.5s;
+
+
 }
 
 /* Light Mode (Default) */
@@ -32,14 +34,14 @@ header {
 /* Navigation Bar */
 nav ul {
     list-style: none;
-    padding: 0;
+    padding: 10px;
     display: flex;
     justify-content: center;
     border-radius: 40px;
     background-color: #5c3b3b;
 }
 nav ul li {
-    margin: 0px;
+    margin: 10px;
 }
 nav ul li a {
     text-decoration: none;
@@ -52,16 +54,15 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-/* Buttons - Stylish */
+/* Buttons */
 button {
-    background: linear-gradient(120deg, #67d1d1, #a15114);
-    color: white;
+    background: linear-gradient(120deg, #ffffff, #a84c06);
+    color: rgb(0, 0, 0);
     border: none;
-    padding: 5px 5px;
+    padding: 10px 15px;
     font-size: 16px;
     font-weight: bold;
     border-radius: 8px;
-
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
     outline: none;
@@ -71,22 +72,7 @@ button:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 button:active {
-    transform: scale(2);
-}
-
-/* Smooth Fade-in Effect */
-.intro {
-    opacity: 0;
-    transform: translateY(100px);
-    transform: translateX(-100px);
-    animation: fadeIn 2s forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    transform: scale(1.1);
 }
 
 /* Sections */
@@ -105,7 +91,7 @@ button:active {
 }
 
 .section:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .police-section {
@@ -114,10 +100,11 @@ button:active {
 }
 
 .citizen-section {
-    background: #161b24;
-    color: white;
+    background: #d09e31;
+    color: rgb(0, 0, 0);
 }
 
+/* Login Box */
 .login-container {
     width: 300px;
     margin: 100px auto;
@@ -126,10 +113,6 @@ button:active {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h2 {
-    margin-bottom: 20px;
 }
 
 .login-container input {
@@ -154,6 +137,47 @@ button:active {
 }
 
 .login-container button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.signup-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.signup-container button {
+    width: 100%;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.signup-container button:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
