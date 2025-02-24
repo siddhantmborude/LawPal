@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const themeToggle = document.getElementById("theme-toggle");
     const body = document.body;
 
@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Toggle dark mode on button click
-    themeToggle.addEventListener("click", function() {
+    themeToggle.addEventListener("click", function () {
         body.classList.toggle("dark-mode");
-        
+
         if (body.classList.contains("dark-mode")) {
             localStorage.setItem("dark-mode", "enabled");
         } else {
@@ -29,15 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LOGIN FUNCTION
     if (loginForm) {
-        loginForm.addEventListener("submit", function (e) {
+        loginForm.addEventListener("submit", async function (e) {
             e.preventDefault();
             const username = document.getElementById("username").value.trim();
             const password = document.getElementById("password").value.trim();
-            
-            const savedUsername = localStorage.getItem("username");
-            const savedPassword = localStorage.getItem("password");
 
-            if (username === savedUsername && password === savedPassword) {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ username, password })
+            });
+
+            const result = await response.text();
+
+            if (response.ok) {
                 localStorage.setItem("loggedIn", "true");
                 window.location.href = "/";
             } else {
@@ -48,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // SIGNUP FUNCTION
     if (signupForm) {
-        signupForm.addEventListener("submit", function (e) {
+        signupForm.addEventListener("submit", async function (e) {
             e.preventDefault();
-            
+
             const newUsername = document.getElementById("new-username").value.trim();
             const newPassword = document.getElementById("new-password").value.trim();
             const signupMessage = document.getElementById("signup-message");
@@ -61,21 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (localStorage.getItem("username") === newUsername) {
-                signupMessage.textContent = "Username already exists! Try a different one.";
+            const response = await fetch("/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ "new-username": newUsername, "new-password": newPassword })
+            });
+
+            if (response.ok) {
+                signupMessage.textContent = "Account created successfully! Redirecting to login...";
+                signupMessage.style.color = "green";
+                setTimeout(() => window.location.href = "/login", 2000);
+            } else {
+                const errorText = await response.text();
+                signupMessage.textContent = errorText;
                 signupMessage.style.color = "red";
-                return;
             }
-
-            localStorage.setItem("username", newUsername);
-            localStorage.setItem("password", newPassword);
-
-            signupMessage.textContent = "Account created successfully! Redirecting to login...";
-            signupMessage.style.color = "green";
-
-            setTimeout(() => {
-                window.location.href = "/login"; // Corrected redirect path
-            }, 2000);
         });
     }
 
@@ -88,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LOGOUT FUNCTION
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
+        logoutBtn.addEventListener("click", async function () {
+            await fetch("/logout", { method: "GET" });
             localStorage.removeItem("loggedIn");
             window.location.href = "/login";
         });
