@@ -2,12 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeToggle = document.getElementById("theme-toggle");
     const body = document.body;
 
-    // Load saved theme from localStorage
     if (localStorage.getItem("dark-mode") === "enabled") {
         body.classList.add("dark-mode");
     }
 
-    // Toggle dark mode on button click
     themeToggle.addEventListener("click", function () {
         body.classList.toggle("dark-mode");
 
@@ -18,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Smooth transition effect
     document.querySelector(".intro").style.opacity = "1";
 });
 
@@ -27,31 +24,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupForm = document.getElementById("signup-form");
     const logoutBtn = document.getElementById("logout-btn");
 
-    // LOGIN FUNCTION
     if (loginForm) {
         loginForm.addEventListener("submit", async function (e) {
             e.preventDefault();
             const username = document.getElementById("username").value.trim();
             const password = document.getElementById("password").value.trim();
+            const errorMessage = document.getElementById("error-message");
 
-            const response = await fetch("/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({ username, password })
-            });
+            if (errorMessage) {
+                errorMessage.textContent = "";
+            }
 
-            const result = await response.text();
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({ username, password }),
+                });
 
-            if (response.ok) {
-                localStorage.setItem("loggedIn", "true");
-                window.location.href = "/";
-            } else {
-                document.getElementById("error-message").textContent = "Invalid username or password!";
+                const result = await response.text();
+
+                if (response.ok && !result.includes("Invalid Credentials")) {
+                    localStorage.setItem("loggedIn", "true");
+
+                    window.location.href = "/";
+                } else {
+                    if (errorMessage) {
+                        errorMessage.textContent = "Invalid username or password!";
+                    }
+                }
+            } catch (error) {
+                console.error("Login request failed:", error);
+                if (errorMessage) {
+                    errorMessage.textContent = "Something went wrong. Please try again.";
+                }
             }
         });
     }
 
-    // SIGNUP FUNCTION
     if (signupForm) {
         signupForm.addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -84,14 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // CHECK LOGIN STATUS
     window.checkLogin = function () {
         if (localStorage.getItem("loggedIn") !== "true") {
             window.location.href = "/login";
         }
     };
 
-    // LOGOUT FUNCTION
     if (logoutBtn) {
         logoutBtn.addEventListener("click", async function () {
             await fetch("/logout", { method: "GET" });
